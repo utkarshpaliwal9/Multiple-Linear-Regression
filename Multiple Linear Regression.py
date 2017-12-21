@@ -37,10 +37,22 @@ regressor = LinearRegression()
 regressor.fit(x_train, y_train)
 y_pred = regressor.predict(x_test)
 
+#Improving the model
+import statsmodels.formula.api as sm
+X = np.append(arr = np.ones((50,1)), values = X[:,:], axis = 1)
+x_opt = X[:, [0,3,5]]
+regressor_OLS = sm.OLS(endog= Y, exog= x_opt).fit()
+regressor_OLS.summary()
+regressor = LinearRegression()
+x_test = np.append(arr = np.ones((10,1)), values = x_test[:,:], axis = 1)
+regressor.fit(x_test[:, [0,3,5]], y_test)
+y_pred = regressor.predict(x_test[:, [0,3,5]])
+
 #Plotting y_test vs predictions
 import matplotlib.pyplot as plt
-xcord = range(1,11)
-plt.scatter(xcord, y_test, color = 'red')
-plt.scatter(xcord, y_pred, color = 'blue')
+plt.scatter(x_test[:,3], y_test, color = 'red')
+plt.scatter(x_test[:,3], y_pred, color = 'blue')
 plt.title('Predictions(Blue) vs Actual(Red)')
+plt.xlabel('R&D Spend ->')
+plt.ylabel('Earning ->')
 plt.show()
