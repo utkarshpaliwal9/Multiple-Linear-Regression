@@ -29,7 +29,7 @@ X = X[:,1:]
 
 #SPlit
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(X,Y, test_size = 0.2)
+x_train, x_test, y_train, y_test = train_test_split(X,Y, test_size = 0.2, random_state = 0)
 
 #train the model and Predicting
 from sklearn.linear_model import LinearRegression
@@ -51,7 +51,7 @@ y_pred = regressor.predict(x_test[:, [0,3,5]])
 #Plotting y_test vs predictions
 import matplotlib.pyplot as plt
 plt.scatter(x_test[:,3], y_test, color = 'red')
-plt.scatter(x_test[:,3], y_pred, color = 'blue')
+plt.plot(x_test[:,3], y_pred, color = 'blue')
 plt.title('Predictions(Blue) vs Actual(Red)')
 plt.xlabel('R&D Spend ->')
 plt.ylabel('Earning ->')
